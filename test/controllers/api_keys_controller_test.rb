@@ -11,7 +11,7 @@ class ApiKeysControllerTest < ActionController::TestCase
   test 'returns new authentication token' do
     alice.api_key.destroy!
     post :create, email: alice.email, password: 'password'
-    #assert_response :success
+    assert_response :success
     assert response_entries.include?('access_token')
     assert_not response_entries.include?('user_id')
     assert_not response_entries.include?('id')
@@ -19,8 +19,8 @@ class ApiKeysControllerTest < ActionController::TestCase
 
   test 'returns existing authentication token' do
     post :create, email: alice.email, password: 'password'
-    #assert_response :success
-    assert response_entries.include?('access_token')
+    assert_response :success
+    assert_equal alice.api_key.access_token, response_entries['access_token']
     assert_not response_entries.include?('user_id')
     assert_not response_entries.include?('id')
   end
