@@ -4,4 +4,6 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email
 
   validates :first_name, :email, :password_digest, presence: true
+
+  has_one :api_key
 end
